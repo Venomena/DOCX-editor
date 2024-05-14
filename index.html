@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Docx Editor</title>
+</head>
+<body>
+  <h1>Docx Editor</h1>
+  <form id="editForm">
+    <input type="file" id="fileInput" accept=".docx" required>
+    <textarea id="instructionsInput" placeholder="Enter editing instructions" required></textarea>
+    <button type="submit">Edit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("editForm");
+    const fileInput = document.getElementById("fileInput");
+    const instructionsInput = document.getElementById("instructionsInput");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const file = fileInput.files[0];
+      const instructions = instructionsInput.value;
+
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64File = reader.result.split(",")[1];
+
+        const response = await fetch("/api/edit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ file: base64File, instructions }),
+        });
+
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "edited.docx");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+window.URL.revokeObjectURL(url);
+} else {
+alert("Error editing the document");
+}
+};
+reader.readAsDataURL(file);
+});
