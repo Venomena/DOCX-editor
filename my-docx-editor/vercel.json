@@ -1,17 +1,16 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/editFile.js",
-        "use": "@vercel/node"
-      },
-      {
-        "src": "package.json",
-        "use": "@vercel/next"
-      }
-    ],
-    "env": {
-      "GROQ_API_KEY": "@groq_api_key"
+  "version": 2,
+  "builds": [
+    {
+      "src": "pages/api/editFile.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
     }
+  ],
+  "env": {
+    "GROQ_API_KEY": "@groq_api_key"
   }
-  
+}

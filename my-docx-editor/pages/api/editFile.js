@@ -10,6 +10,7 @@ const groq = new Groq({
 
 const processFile = async (filePath, instructions) => {
   try {
+    console.log("Reading file:", filePath);
     const data = fs.readFileSync(filePath);
     console.log("File data read successfully:", data.length, "bytes");
 
@@ -75,7 +76,7 @@ export default async (req, res) => {
       fs.writeFileSync(outputPath, editedBuffer);
       console.log("File saved successfully:", outputPath);
 
-      return res.status(200).json({ message: "File edited successfully", downloadUrl: outputPath });
+      return res.status(200).json({ message: "File edited successfully", downloadUrl: `/api/download?path=${encodeURIComponent(outputPath)}` });
     } catch (error) {
       console.error("Error processing file:", error);
       return res.status(500).json({ message: "Error processing file" });
