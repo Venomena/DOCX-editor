@@ -4,6 +4,7 @@ export default function Home() {
   const [file, setFile] = useState(null);
   const [instructions, setInstructions] = useState("");
   const [message, setMessage] = useState("");
+  const [downloadUrl, setDownloadUrl] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -29,7 +30,8 @@ export default function Home() {
       if (res.ok) {
         const data = await res.json();
         setMessage(data.message);
-        window.location.href = data.downloadUrl;
+        setDownloadUrl(data.downloadUrl);
+        console.log("Download URL:", data.downloadUrl);
       } else {
         const errorData = await res.json();
         setMessage(`Error: ${errorData.message}`);
@@ -53,6 +55,13 @@ export default function Home() {
         <button type="submit">Edit File</button>
       </form>
       {message && <p>{message}</p>}
+      {downloadUrl && (
+        <p>
+          <a href={downloadUrl} download>
+            Download Edited File
+          </a>
+        </p>
+      )}
     </div>
   );
 }
