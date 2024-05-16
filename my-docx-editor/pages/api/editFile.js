@@ -10,7 +10,6 @@ const groq = new Groq({
 
 const processFile = async (filePath, instructions) => {
   try {
-    console.log("Reading file:", filePath);
     const data = fs.readFileSync(filePath);
     console.log("File data read successfully:", data.length, "bytes");
 
