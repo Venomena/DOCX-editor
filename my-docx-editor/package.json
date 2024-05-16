@@ -9,15 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "form-data": "^4.0.0",
+    "formidable": "^3.5.1",
     "groq-sdk": "^0.3.3",
     "next": "14.2.3",
-    "next-connect": "^1.0.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@vercel/node": "^3.1.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.3"
   }
