@@ -1,4 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+export default {
+    env: {
+      GROQ_API_KEY: process.env.GROQ_API_KEY,
+    },
+  };
+  
